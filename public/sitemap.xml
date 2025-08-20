@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Main page -->
+  <url>
+    <loc>https://secret-show.ru/</loc>
+    <lastmod>2024-01-01T00:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://secret-show.ru/og-image.jpg</image:loc>
+      <image:title>Иллюзионное шоу СЕКРЕТ</image:title>
+      <image:caption>Премиальное иллюзионное шоу Дмитрия Костюка в Ярославле</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://secret-show.ru/magic-show-trailer.png</image:loc>
+      <image:title>Трейлер шоу СЕКРЕТ</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://secret-show.ru/dmitry-portrait.png</image:loc>
+      <image:title>Дмитрий Костюк - иллюзионист</image:title>
+    </image:image>
+  </url>
+
+  <!-- Section anchors for better indexing -->
+  <url>
+    <loc>https://secret-show.ru/#booking</loc>
+    <lastmod>2024-01-01T00:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://secret-show.ru/#video</loc>
+    <lastmod>2024-01-01T00:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://secret-show.ru/#reviews</loc>
+    <lastmod>2024-01-01T00:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
