@@ -184,6 +184,52 @@
   animation: float 3s ease-in-out infinite;
 }
 
+/* Added new animations for full functionality */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
 /* Added new magical animations */
 @keyframes shimmer {
   0% {
@@ -214,6 +260,32 @@
   animation: mystical-glow 3s ease-in-out infinite;
 }
 
+/* Added interactive effects for better UX */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.magnetic {
+  transition: transform 0.3s ease;
+}
+
+.magnetic:hover {
+  transform: scale(1.02);
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -237,4 +309,687 @@ html {
   pointer-events: none;
   z-index: 9999;
   transition: all 0.1s ease;
+}
+
+/* Added styles for glass discount button */
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Added styles for reviews carousel */
+.reviews-carousel {
+  overflow: hidden;
+}
+
+.reviews-track {
+  display: flex;
+  animation: scroll-reviews 30s linear infinite;
+}
+
+@keyframes scroll-reviews {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.reviews-track:hover {
+  animation-play-state: paused;
+}
+
+/* Added new magical background animations and effects */
+@keyframes mystical-drift {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(20px) translateY(-10px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(0) translateY(-20px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-20px) translateY(-10px) rotate(270deg);
+  }
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scaleX(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleX(1.2);
+  }
+}
+
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(240deg);
+  }
+}
+
+@keyframes magical-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2), 0 0 40px rgba(139, 0, 0, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.4), 0 0 80px rgba(139, 0, 0, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+.animate-mystical-drift {
+  animation: mystical-drift 8s ease-in-out infinite;
+}
+
+.animate-aurora {
+  animation: aurora 6s ease-in-out infinite;
+}
+
+.animate-particle-float {
+  animation: particle-float 4s ease-in-out infinite;
+}
+
+.animate-magical-pulse {
+  animation: magical-pulse 3s ease-in-out infinite;
+}
+
+/* Enhanced gradient backgrounds */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+.bg-gradient-conic {
+  background: conic-gradient(var(--tw-gradient-stops));
+}
+
+/* Magical fog effect */
+.magic-fog {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 215, 0, 0.05) 30%,
+    rgba(139, 0, 0, 0.03) 60%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  animation: mystical-drift 12s ease-in-out infinite;
+}
+
+/* Enhanced parallax layers */
+.parallax-layer-1 {
+  transform: translateZ(-1px) scale(2);
+}
+
+.parallax-layer-2 {
+  transform: translateZ(-2px) scale(3);
+}
+
+.parallax-layer-3 {
+  transform: translateZ(-3px) scale(4);
+}
+
+/* Improved hover effects */
+.hover-lift {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+/* Magical text effects */
+.text-magical {
+  background: linear-gradient(
+    45deg,
+    var(--color-gold-400),
+    var(--color-gold-300),
+    var(--color-burgundy-400),
+    var(--color-gold-500)
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Added new animation keyframes for enhanced micro-interactions */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-50px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes glow-in {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@keyframes elastic-scale {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes magical-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) rotate(-5deg) scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-10px) rotate(2deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-glow-in {
+  animation: glow-in 1s ease-out forwards;
+}
+
+.animate-elastic-scale {
+  animation: elastic-scale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-magical-entrance {
+  animation: magical-entrance 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Enhanced interactive states */
+.interactive-element {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+
+.interactive-element:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-element:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Magical focus states */
+.magical-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+  border-color: #d4af37;
+}
+
+/* Stagger animation utilities */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.stagger-children > *:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  /* Typography scaling for mobile */
+  h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2.2rem) !important;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+  h3 {
+    font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+    line-height: 1.4;
+  }
+  p,
+  span {
+    font-size: clamp(0.9rem, 4vw, 1.1rem) !important;
+    line-height: 1.6;
+  }
+
+  /* Mobile container adjustments */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+
+  /* Mobile spacing utilities */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  .mobile-container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  /* Button optimizations for touch */
+  button,
+  .cursor-pointer,
+  .interactive-element {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin: 4px;
+  }
+
+  /* Mobile-specific animations - reduced intensity */
+  .animate-float {
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+  }
+
+  .magic-particles {
+    opacity: 0.4;
+    transform: scale(0.6);
+  }
+
+  .animate-mystical-drift {
+    animation-duration: 12s;
+  }
+
+  /* Reduce motion for better performance */
+  .animate-shimmer {
+    animation-duration: 3s;
+  }
+
+  /* Mobile hero section */
+  .hero-section {
+    min-height: 80vh;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  /* Mobile card layouts */
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Mobile navigation */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 9999;
+  }
+
+  /* Touch-friendly hover states */
+  .hover-glow:hover,
+  .hover-scale:hover,
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Mobile-specific glass effects */
+  .glass-button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Optimize text rendering on mobile */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  /* Mobile scroll optimizations */
+  * {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent horizontal scroll */
+  body,
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Mobile form elements */
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  /* Mobile image optimizations */
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Mobile video player */
+  video {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 70vh;
+    padding: 1rem;
+  }
+
+  .mobile-landscape-hide {
+    display: none;
+  }
+
+  .mobile-landscape-compact {
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+  }
+
+  /* Adjust text sizes for landscape */
+  h1 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 5vw, 1.8rem) !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+  }
+
+  .glass-button {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* Ultra-compact spacing */
+  .mobile-spacing {
+    padding: 0.75rem;
+    margin: 0.25rem 0;
+  }
+}
+
+/* High DPI mobile displays */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+  /* Sharper text rendering */
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  /* Optimize images for retina */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Touch device specific styles */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects entirely */
+  .hover\\:scale-105:hover,
+  .hover\\:scale-110:hover,
+  .group:hover .group-hover\\:animate-spin,
+  .hover-glow:hover,
+  .hover-scale:hover,
+  .hover-lift:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  /* Enhanced touch targets */
+  .touch-target {
+    padding: 16px;
+    margin: 8px;
+    border-radius: 12px;
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Touch feedback */
+  .interactive-element:active {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(0.95);
+    transition: all 0.1s ease;
+  }
+}
+
+/* iOS specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* Fix iOS 100vh issue */
+  .full-height {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* iOS safe area support */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Prevent iOS bounce scroll */
+  body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-mystical-drift,
+  .animate-shimmer {
+    animation: none !important;
+  }
+}
+
+/* Performance optimizations for slower connections */
+.slow-connection .magic-particles,
+.slow-connection .animate-mystical-drift,
+.slow-connection .animate-shimmer {
+  display: none;
+}
+
+.slow-connection .glass-button {
+  backdrop-filter: none;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile-specific utility classes */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-center {
+    text-align: center;
+  }
+
+  .mobile-full-width {
+    width: 100%;
+  }
+
+  .mobile-no-margin {
+    margin: 0;
+  }
+
+  .mobile-small-padding {
+    padding: 0.5rem;
+  }
+}
+
+/* Added animations for theatrical curtains */
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-left {
+  animation: slide-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-right {
+  animation: slide-right 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Added additional effects for curtains */
+@keyframes curtain-reveal {
+  0% {
+    clip-path: inset(0 50% 0 50%);
+  }
+  100% {
+    clip-path: inset(0 0% 0 0%);
+  }
+}
+
+.animate-curtain-reveal {
+  animation: curtain-reveal 2s ease-out forwards;
+}
+
+/* Improved theatrical effects */
+.curtain-shadow {
+  box-shadow: inset 20px 0 40px rgba(0, 0, 0, 0.5), inset -20px 0 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.stage-lighting {
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(255, 215, 0, 0.1) 0%,
+    rgba(255, 215, 0, 0.05) 30%,
+    transparent 70%
+  );
 }

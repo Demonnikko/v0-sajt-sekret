@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Volume2, VolumeX } from "lucide-react"
 
 interface SoundManagerProps {
   enabled?: boolean
@@ -8,49 +9,18 @@ interface SoundManagerProps {
 
 export default function SoundManager({ enabled = true }: SoundManagerProps) {
   const [isEnabled, setIsEnabled] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const [volume, setVolume] = useState(0.3)
   const audioContextRef = useRef<AudioContext | null>(null)
-  const soundsRef = useRef<{ [key: string]: AudioBuffer }>({})
-
-  // Sound URLs (in a real app, these would be actual audio files)
-  const soundUrls = {
-    magic: "/sounds/magic-sparkle.mp3",
-    treasure: "/sounds/treasure-open.mp3",
-    button: "/sounds/button-hover.mp3",
-    success: "/sounds/success-chime.mp3",
-    easter: "/sounds/easter-egg.mp3",
-    ambient: "/sounds/ambient-magic.mp3",
-  }
 
   useEffect(() => {
     if (!enabled) return
 
-    // Initialize audio context on first user interaction
-    const initAudio = async () => {
+    const initAudio = () => {
       try {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
-
-        // Load all sounds
-        const loadPromises = Object.entries(soundUrls).map(async ([key, url]) => {
-          try {
-            // For demo purposes, create a simple tone instead of loading actual files
-            const buffer = audioContextRef.current!.createBuffer(1, 44100 * 0.1, 44100)
-            const data = buffer.getChannelData(0)
-
-            // Generate different tones for different sounds
-            const frequency = key === "magic" ? 800 : key === "treasure" ? 400 : key === "success" ? 600 : 300
-            for (let i = 0; i < data.length; i++) {
-              data[i] = Math.sin((2 * Math.PI * frequency * i) / 44100) * 0.1 * Math.exp((-i / 44100) * 5)
-            }
-
-            soundsRef.current[key] = buffer
-          } catch (error) {
-            console.warn(`Failed to load sound: ${key}`)
-          }
-        })
-
-        await Promise.all(loadPromises)
-        setIsLoaded(true)
+        if (typeof window !== "undefined" && !audioContextRef.current) {
+          audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
+        }
       } catch (error) {
         console.warn("Audio context initialization failed:", error)
       }
@@ -72,76 +42,111 @@ export default function SoundManager({ enabled = true }: SoundManagerProps) {
     }
   }, [enabled])
 
-  const playSound = (soundName: string, volume = 0.3) => {
-    if (!isEnabled || !isLoaded || !audioContextRef.current || !soundsRef.current[soundName]) {
-      return
-    }
+  const playSound = (frequency = 800, duration = 0.2) => {
+    if (!isEnabled || !audioContextRef.current || isMuted) return
 
     try {
-      const source = audioContextRef.current.createBufferSource()
+      if (audioContextRef.current.state === "suspended") {
+        audioContextRef.current.resume()
+      }
+
+      const oscillator = audioContextRef.current.createOscillator()
       const gainNode = audioContextRef.current.createGain()
 
-      source.buffer = soundsRef.current[soundName]
-      gainNode.gain.value = volume
-
-      source.connect(gainNode)
+      oscillator.connect(gainNode)
       gainNode.connect(audioContextRef.current.destination)
 
-      source.start()
+      oscillator.frequency.setValueAtTime(frequency, audioContextRef.current.currentTime)
+      oscillator.type = "sine"
+
+      gainNode.gain.setValueAtTime(volume * 0.1, audioContextRef.current.currentTime)
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContextRef.current.currentTime + duration)
+
+      oscillator.start(audioContextRef.current.currentTime)
+      oscillator.stop(audioContextRef.current.currentTime + duration)
     } catch (error) {
-      console.warn("Failed to play sound:", soundName, error)
+      // Silently handle audio errors
     }
   }
 
-  // Expose playSound function globally
+  const toggleMute = () => {
+    setIsMuted(!isMuted)
+  }
+
+  const adjustVolume = (newVolume: number) => {
+    setVolume(newVolume)
+  }
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      ;(window as any).playMagicSound = playSound
+      ;(window as any).playMagicSound = (type: string) => {
+        switch (type) {
+          case "magic":
+            playSound(800, 0.3)
+            break
+          case "button":
+            playSound(600, 0.1)
+            break
+          case "success":
+            playSound(1000, 0.5)
+            break
+          default:
+            playSound(500, 0.2)
+        }
+      }
     }
-  }, [isLoaded])
+  }, [isEnabled, volume, isMuted])
 
-  // Add sound effects to existing elements
   useEffect(() => {
-    if (!isLoaded) return
+    if (!isEnabled) return
 
-    const addSoundToElements = () => {
-      // Magic sounds for sparkle elements
-      document.querySelectorAll('[data-sound="magic"]').forEach((element) => {
-        element.addEventListener("mouseenter", () => playSound("magic", 0.2))
-      })
-
-      // Button hover sounds
+    const addSoundToButtons = () => {
       document.querySelectorAll('button, [role="button"]').forEach((element) => {
-        element.addEventListener("mouseenter", () => playSound("button", 0.1))
-      })
+        const handleHover = () => playSound(600, 0.1)
+        const handleClick = () => playSound(800, 0.2)
 
-      // Treasure game sounds
-      document.querySelectorAll('[data-sound="treasure"]').forEach((element) => {
-        element.addEventListener("click", () => playSound("treasure", 0.4))
-      })
-
-      // Success sounds
-      document.querySelectorAll('[data-sound="success"]').forEach((element) => {
-        element.addEventListener("click", () => playSound("success", 0.3))
-      })
-
-      // Easter egg sounds
-      document.querySelectorAll('[data-sound="easter"]').forEach((element) => {
-        element.addEventListener("click", () => playSound("easter", 0.5))
+        element.addEventListener("mouseenter", handleHover)
+        element.addEventListener("click", handleClick)
       })
     }
 
-    // Wait for DOM to be ready
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", addSoundToElements)
+      document.addEventListener("DOMContentLoaded", addSoundToButtons)
     } else {
-      addSoundToElements()
+      addSoundToButtons()
     }
 
     return () => {
-      document.removeEventListener("DOMContentLoaded", addSoundToElements)
+      document.removeEventListener("DOMContentLoaded", addSoundToButtons)
     }
-  }, [isLoaded])
+  }, [isEnabled])
 
-  return null
+  if (!isEnabled) return null
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-gold-500/30">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleMute}
+            className="text-gold-400 hover:text-gold-300 transition-colors"
+            title={isMuted ? "Включить звук" : "Выключить звук"}
+          >
+            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          </button>
+
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={volume}
+            onChange={(e) => adjustVolume(Number.parseFloat(e.target.value))}
+            className="w-20 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            title="Громкость"
+          />
+        </div>
+      </div>
+    </div>
+  )
 }

@@ -9,24 +9,26 @@ interface MagicPreloaderProps {
 
 export default function MagicPreloader({ onComplete }: MagicPreloaderProps) {
   const [progress, setProgress] = useState(0)
-  const [stage, setStage] = useState<"loading" | "revealing" | "complete">("loading")
+  const [stage, setStage] = useState<"loading" | "revealing" | "curtains" | "complete">("loading")
 
   useEffect(() => {
-    // Simulate loading progress
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval)
           setStage("revealing")
           setTimeout(() => {
-            setStage("complete")
-            setTimeout(onComplete, 500)
+            setStage("curtains")
+            setTimeout(() => {
+              setStage("complete")
+              setTimeout(onComplete, 800)
+            }, 1500)
           }, 1000)
           return 100
         }
-        return prev + Math.random() * 15
+        return prev + Math.random() * 40
       })
-    }, 100)
+    }, 30)
 
     return () => clearInterval(interval)
   }, [onComplete])
@@ -34,7 +36,35 @@ export default function MagicPreloader({ onComplete }: MagicPreloaderProps) {
   if (stage === "complete") return null
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center">
+    <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center overflow-hidden">
+      {stage === "curtains" && (
+        <>
+          {/* Левая кулиса */}
+          <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-700 z-50 animate-slide-left">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
+            <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-black/50 to-transparent" />
+            {/* Декоративные элементы кулис */}
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 space-y-8">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="w-2 h-16 bg-gold-600/30 rounded-full" />
+              ))}
+            </div>
+          </div>
+
+          {/* Правая кулиса */}
+          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-burgundy-900 via-burgundy-800 to-burgundy-700 z-50 animate-slide-right">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
+            <div className="absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-black/50 to-transparent" />
+            {/* Декоративные элементы кулис */}
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 space-y-8">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="w-2 h-16 bg-gold-600/30 rounded-full" />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-burgundy-900/30 to-black">
@@ -101,6 +131,21 @@ export default function MagicPreloader({ onComplete }: MagicPreloaderProps) {
               </span>
             </div>
             <div className="text-2xl text-burgundy-300 animate-pulse">Добро пожаловать в мир магии</div>
+            <div className="text-lg text-gold-400 animate-bounce mt-8">
+              <Crown className="w-6 h-6 mx-auto mb-2" />
+              Поднимаем занавес...
+            </div>
+          </div>
+        )}
+
+        {stage === "curtains" && (
+          <div className="space-y-8 animate-scale-in">
+            <div className="text-6xl md:text-8xl font-bold tracking-wider">
+              <span className="bg-gradient-to-r from-gold-400 via-gold-300 to-gold-500 bg-clip-text text-transparent drop-shadow-2xl animate-pulse">
+                СЕКРЕТ
+              </span>
+            </div>
+            <div className="text-3xl text-burgundy-300 animate-fade-in">Шоу начинается!</div>
           </div>
         )}
       </div>

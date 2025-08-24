@@ -70,6 +70,42 @@ const REVIEWS: Review[] = [
     rating: 5,
     avatar: "/reviewer-6.png",
   },
+  {
+    id: 7,
+    name: "Мария Козлова",
+    age: 33,
+    city: "Воронеж",
+    text: "Потрясающее шоу! Каждый номер - это маленькое чудо. Обязательно приду еще раз!",
+    rating: 5,
+    avatar: "/reviewer-7.png",
+  },
+  {
+    id: 8,
+    name: "Сергей Иванов",
+    age: 29,
+    city: "Тула",
+    text: "Невероятная атмосфера! Дмитрий умеет создать настоящую магию. Рекомендую всем!",
+    rating: 5,
+    avatar: "/reviewer-8.png",
+  },
+  {
+    id: 9,
+    name: "Татьяна Смирнова",
+    age: 38,
+    city: "Рязань",
+    text: "Шоу превзошло все ожидания! Такого уровня иллюзий я еще не видела. Браво!",
+    rating: 5,
+    avatar: "/reviewer-9.png",
+  },
+  {
+    id: 10,
+    name: "Андрей Петров",
+    age: 41,
+    city: "Тверь",
+    text: "Профессионализм на высшем уровне! Каждая минута шоу держит в напряжении.",
+    rating: 5,
+    avatar: "/reviewer-10.png",
+  },
 ]
 
 export default function ReviewsSlider() {
@@ -81,7 +117,7 @@ export default function ReviewsSlider() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % REVIEWS.length)
-    }, 5000)
+    }, 4000) // Faster carousel
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
@@ -89,16 +125,22 @@ export default function ReviewsSlider() {
   const nextReview = () => {
     setCurrentIndex((prev) => (prev + 1) % REVIEWS.length)
     setIsAutoPlaying(false)
+    // Resume autoplay after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000)
   }
 
   const prevReview = () => {
     setCurrentIndex((prev) => (prev - 1 + REVIEWS.length) % REVIEWS.length)
     setIsAutoPlaying(false)
+    // Resume autoplay after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000)
   }
 
   const goToReview = (index: number) => {
     setCurrentIndex(index)
     setIsAutoPlaying(false)
+    // Resume autoplay after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000)
   }
 
   const currentReview = REVIEWS[currentIndex]
@@ -161,12 +203,12 @@ export default function ReviewsSlider() {
         </Button>
 
         {/* Dots Indicator */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-x-auto max-w-xs">
           {REVIEWS.map((_, index) => (
             <button
               key={index}
               onClick={() => goToReview(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-3 h-3 rounded-full transition-all duration-300 flex-shrink-0 ${
                 index === currentIndex ? "bg-gold-400 scale-125" : "bg-gray-600 hover:bg-gray-500"
               }`}
             />

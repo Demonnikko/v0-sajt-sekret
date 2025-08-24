@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { X, Sparkles, Crown, Gift, Star } from "lucide-react"
-import confetti from "canvas-confetti"
+import { X, Sparkles, Crown, Star } from "lucide-react"
 
 interface EasterEggModalProps {
   isOpen: boolean
@@ -18,6 +17,20 @@ export default function EasterEggModal({ isOpen, onClose }: EasterEggModalProps)
   const secretMessage =
     "Истинная магия начинается тогда, когда вы перестаете искать объяснения и начинаете верить в невозможное. Добро пожаловать в мир, где чудеса - это не исключение, а правило."
 
+  const triggerConfetti = async () => {
+    try {
+      const confetti = (await import("canvas-confetti")).default
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.4 },
+        colors: ["#FFD700", "#8B0000", "#000000", "#800020"],
+      })
+    } catch (error) {
+      console.log("[v0] Confetti library not available")
+    }
+  }
+
   useEffect(() => {
     if (!isOpen) {
       setStage(0)
@@ -26,12 +39,7 @@ export default function EasterEggModal({ isOpen, onClose }: EasterEggModalProps)
     }
 
     // Trigger confetti
-    confetti({
-      particleCount: 150,
-      spread: 100,
-      origin: { y: 0.4 },
-      colors: ["#FFD700", "#8B0000", "#000000", "#800020"],
-    })
+    triggerConfetti()
 
     // Reveal text gradually
     const timer = setTimeout(() => {
@@ -121,11 +129,11 @@ export default function EasterEggModal({ isOpen, onClose }: EasterEggModalProps)
 
                   <div className="bg-gradient-to-r from-burgundy-900/50 to-gold-900/50 rounded-lg p-4 border border-gold-400/30">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <Gift className="w-5 h-5 text-gold-400" />
-                      <span className="text-gold-400 font-semibold">Бонус за любопытство</span>
+                      <Sparkles className="w-5 h-5 text-gold-400" />
+                      <span className="text-gold-400 font-semibold">Поздравляем с находкой!</span>
                     </div>
                     <p className="text-sm text-gray-300">
-                      Промокод: <span className="font-bold text-burgundy-300">СЕКРЕТ2024</span> - скидка 15% на билет!
+                      Вы нашли скрытое послание. Это просто интерактивный элемент для любознательных зрителей!
                     </p>
                   </div>
 
